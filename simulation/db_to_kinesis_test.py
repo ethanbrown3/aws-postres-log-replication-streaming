@@ -1,7 +1,8 @@
+import os
+import time
 from sshtunnel import SSHTunnelForwarder
 import boto3
 import psycopg2
-import time
 
 # Kinesis configurations
 KINESIS_STREAM_NAME = 'example-kinesis-stream'
@@ -25,10 +26,11 @@ DB_PASSWORD = get_ssm_parameter('/database/password')
 # Assuming you have stored the DB name in SSM
 DB_NAME = get_ssm_parameter('/database/dbname')
 
-SSH_HOST = 'ec2-34-219-255-15.us-west-2.compute.amazonaws.com'
+
+SSH_HOST = os.environ['SSH_HOST']
 SSH_PORT = 22
-SSH_USER = 'ec2-user'
-SSH_PRIVATE_KEY = '/Users/ethan/.ssh/dataeng-mage-bastion.pem'
+SSH_USER = os.environ['SSH_USER']
+SSH_PRIVATE_KEY = os.environ['SSH_PRIVATE_KEY']
 
 
 def create_ssh_tunnel():
